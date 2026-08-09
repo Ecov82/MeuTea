@@ -1,0 +1,1 @@
+# Este arquivo vazio transforma o diretório 'auth' em um pacote Python.
