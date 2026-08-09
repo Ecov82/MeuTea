@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime, timezone
 from typing import List, Optional
 
 from fastapi import HTTPException, status
@@ -85,7 +85,7 @@ def calcular_status_receita(receita: ReceitaMedica) -> dict:
     if not receita.data_validade:
         return {"dias_para_vencer": None, "status": "INDETERMINADO"}
 
-    hoje = date.today()
+    hoje = datetime.now(timezone.utc).date()
     dias_para_vencer = (receita.data_validade - hoje).days
 
     if dias_para_vencer < 0: status_receita = "VENCIDA"

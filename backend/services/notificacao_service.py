@@ -94,8 +94,8 @@ def _gerar_notificacoes_agenda(db: Session, buffer: list):
     compromissos = db.query(Agenda).filter(Agenda.status == StatusAgendamento.agendado).all()
 
     for comp in compromissos:
-        # Converte para UTC se for naive
-        data_hora_compromisso = comp.data_hora.replace(tzinfo=None) if comp.data_hora.tzinfo else comp.data_hora
+        # Assume que datetimes no banco são UTC, mas naive. Torna-os aware para comparação segura.
+        data_hora_compromisso = comp.data_hora.replace(tzinfo=timezone.utc)
 
         # Regra 1: Compromisso vencido (passou e não foi marcado como realizado/cancelado)
         if data_hora_compromisso < agora:

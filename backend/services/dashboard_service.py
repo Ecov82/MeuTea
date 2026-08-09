@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime, timezone
 from sqlalchemy.orm import Session
 
 from backend.models import Agenda, Medicamento, Notificacao, PessoaTEA, ReceitaMedica, Usuario
@@ -39,7 +39,7 @@ def get_dashboard_stats(db: Session, current_user: Usuario) -> DashboardStats:
         if medicamento_service.calcular_status_medicamento(med)["status"] in ["CRÍTICO", "ESGOTADO"]
     ]
 
-    hoje = date.today()
+    hoje = datetime.now(timezone.utc).date()
     inicio_semana = hoje - timedelta(days=hoje.weekday())
     fim_semana = inicio_semana + timedelta(days=6)
 
