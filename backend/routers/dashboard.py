@@ -14,6 +14,6 @@ router = APIRouter(tags=["Dashboard"])
 def get_dashboard(
     db: Session = Depends(get_db),
     current_user: Usuario = Depends(get_current_user),
-):
+) -> DashboardStats:
     """Retorna um resumo com os principais indicadores da família."""
     return dashboard_service.get_dashboard_stats(db, current_user)

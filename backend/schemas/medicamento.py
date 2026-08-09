@@ -34,5 +34,5 @@ class MedicamentoPublic(MedicamentoBase):
 
 
 class MedicamentoStatus(BaseModel):
-    dias_restantes: int
+    dias_restantes: Optional[int] = None
     status: str

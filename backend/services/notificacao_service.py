@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
 
 from fastapi import HTTPException, status
@@ -30,7 +30,7 @@ def _criar_notificacao_se_nao_existir(
             pessoa_tea_id=pessoa_tea.id,
             titulo=titulo,
             mensagem=mensagem,
-            data_envio=datetime.utcnow(),
+            data_envio=datetime.now(timezone.utc),
         )
         buffer.append(nova_notificacao)
 
@@ -86,7 +86,7 @@ def _gerar_notificacoes_agenda(db: Session, buffer: list):
     """
     Varre todos os compromissos e gera notificações de proximidade.
     """
-    agora = datetime.utcnow()
+    agora = datetime.now(timezone.utc)
     amanha = agora + timedelta(days=1)
     duas_horas = agora + timedelta(hours=2)
 

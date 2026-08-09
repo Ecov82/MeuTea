@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+
+# Byte-code files
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+wheels/
+*.egg-info/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Project-specific files
+.env
+meutea.db
+
+# Alembic
+alembic/versions/*.pyc
+alembic/__pycache__/
+
+# Logs
+*.log

@@ -3,9 +3,10 @@ from sqlalchemy.orm import Session
 
 from backend.models import Agenda, Medicamento, Notificacao, PessoaTEA, ReceitaMedica, Usuario
 from backend.services import medicamento_service, receita_service
+from backend.schemas.dashboard import DashboardStats
 
 
-def get_dashboard_stats(db: Session, current_user: Usuario):
+def get_dashboard_stats(db: Session, current_user: Usuario) -> DashboardStats:
     """Coleta estatísticas do dashboard para a família do usuário autenticado."""
     familia_id = current_user.familia_id
 
@@ -59,15 +60,15 @@ def get_dashboard_stats(db: Session, current_user: Usuario):
         if receita_service.calcular_status_receita(rec)["status"] == "VENCIDA"
     ]
 
-    return {
-        "total_pessoas_tea": total_pessoas_tea,
-        "total_medicamentos": total_medicamentos,
-        "total_notificacoes_nao_lidas": total_notificacoes_nao_lidas,
-        "total_receitas": total_receitas,
-        "total_compromissos": total_compromissos,
-        "medicamentos_criticos": medicamentos_criticos,
-        "receitas_vencendo": receitas_vencendo,
-        "receitas_vencidas": receitas_vencidas,
-        "compromissos_hoje": compromissos_hoje,
-        "compromissos_semana": compromissos_semana,
-    }
+    return DashboardStats(
+        total_pessoas_tea=total_pessoas_tea,
+        total_medicamentos=total_medicamentos,
+        total_notificacoes_nao_lidas=total_notificacoes_nao_lidas,
+        total_receitas=total_receitas,
+        total_compromissos=total_compromissos,
+        medicamentos_criticos=medicamentos_criticos,
+        receitas_vencendo=receitas_vencendo,
+        receitas_vencidas=receitas_vencidas,
+        compromissos_hoje=compromissos_hoje,
+        compromissos_semana=compromissos_semana,
+    )
